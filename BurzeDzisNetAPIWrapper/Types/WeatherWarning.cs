@@ -5,7 +5,7 @@ using BurzeAPI;
 
 namespace BurzeDzisAPIWrapper.Types
 {
-    class WeatherWarning
+    public class WeatherWarning
     {
         //Thunderstorm
         public bool Thunderstorm { get; set; }

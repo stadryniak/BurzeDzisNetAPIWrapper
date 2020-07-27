@@ -4,9 +4,15 @@ using System.Text;
 
 namespace BurzeDzisAPIWrapper.Types
 {
-    class City
+    public class City
     {
-        public float x { get; set; }
-        public float y { get; set; }
+        public float X { get; set; }
+        public float Y { get; set; }
+
+        public City(float x, float y)
+        {
+            X = x;
+            Y = y;
+        }
     }
 }

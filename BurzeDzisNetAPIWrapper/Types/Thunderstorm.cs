@@ -5,7 +5,7 @@ using BurzeAPI;
 
 namespace BurzeDzisAPIWrapper.Types
 {
-    class Thunderstorm
+    public class Thunderstorm
     {
         public int Count { get; set; }
         public float Distance { get; set; }

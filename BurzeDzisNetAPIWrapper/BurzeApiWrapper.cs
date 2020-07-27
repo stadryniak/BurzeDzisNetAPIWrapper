@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Threading.Tasks;
 using BurzeAPI;
+using BurzeDzisAPIWrapper.Types;
 
 namespace BurzeDzisAPIWrapper
 {
     public class BurzeApiWrapper
     {
-        private string _apiKey;
+        private readonly string _apiKey;
         private readonly serwerSOAPPortClient _api = new serwerSOAPPortClient();
 
 
@@ -22,15 +23,23 @@ namespace BurzeDzisAPIWrapper
         /// <exception cref="InvalidApiKeyException">InvalidApiKeyException is thrown in case of api key validation failure</exception>
         public static async Task<BurzeApiWrapper> Factory(string apiKey)
         {
-            if (!await ValidateApiKeyTask(apiKey)) throw new InvalidApiKeyException("Invalid api key");
+            if (!await ValidateApiKeyTask(apiKey))
+            {
+                throw new InvalidApiKeyException("Invalid api key");
+            }
             return new BurzeApiWrapper(apiKey);
         }
 
-        public async Task<MyComplexTypeMiejscowosc> GetCity(string cityName)
+        public async Task<City> GetCity(string cityName)
         {
-            var res = await _api.miejscowoscAsync(cityName, _apiKey);
-            Console.WriteLine($"x: {res.x}\ty: {res.y}");
-            return res;
+            var response = await _api.miejscowoscAsync(cityName, _apiKey);
+            if (response.x == null || response.y == null)
+            {
+                throw new CityCoordinatesException("X or Y coordinates are null");
+            }
+            var city = new City((float)response.x, (float)response.y);
+            Console.WriteLine($"x: {city.X}\ty: {city.Y}");
+            return city;
         }
 
         public async Task<MyComplexTypeOstrzezenia> GetWarnings(float x, float y)
