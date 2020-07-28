@@ -1,3 +1,4 @@
+using System;
 using System.IO;
 using System.Threading.Tasks;
 using BurzeDzisAPIWrapper;
@@ -48,7 +49,106 @@ namespace Tests
             Assert.DoesNotThrowAsync(async () => await api.GetCity("Warszawa".ToLower()));
             Assert.DoesNotThrowAsync(async () => await api.GetCity("warszawa".ToLower()));
             Assert.DoesNotThrowAsync(async () => await api.GetCity("Ostrowiec Swietokrzyski".ToLower()));
-            Assert.DoesNotThrowAsync(async () => await api.GetCity("Ostrowiec Swietokrzyski".ToLower()));
+        }
+
+        [Test]
+        public async Task GetWarningsTest()
+        {
+            var api = await BurzeApiWrapper.Factory(_configuration["api_key"]);
+            var city = await api.GetCity("ostrowiec swietokrzyski");
+            var warnings = await api.GetWarnings(city.X, city.Y);
+            //Thunderstorm
+            Console.WriteLine("Thunderstorm");
+            if (warnings.Thunderstorm > 0)
+            {
+                Console.WriteLine(warnings.ThunderstormStart);
+                Console.WriteLine(warnings.ThunderstormEnd);
+            }
+            //Cold
+            Console.WriteLine("Cold");
+            if (warnings.Cold > 0)
+            {
+                Console.WriteLine(warnings.ColdStart);
+                Console.WriteLine(warnings.ColdEnd);
+            }
+            //Heat
+            Console.WriteLine("Heat");
+            if (warnings.Heat > 0)
+            {
+                Console.WriteLine(warnings.HeatStart);
+                Console.WriteLine(warnings.HeatEnd);
+            }
+            //Wind
+            Console.WriteLine("Wind");
+            if (warnings.Wind > 0)
+            {
+                Console.WriteLine(warnings.WindStart);
+                Console.WriteLine(warnings.WindEnd);
+            }
+            //Rain
+            Console.WriteLine("Rain");
+            if (warnings.Rain > 0)
+            {
+                Console.WriteLine(warnings.RainStart);
+                Console.WriteLine(warnings.RainEnd);
+            }
+            //Tornado
+            Console.WriteLine("Tornado");
+            if (warnings.Tornado > 0)
+            {
+                Console.WriteLine(warnings.TornadoStart);
+                Console.WriteLine(warnings.TornadoEnd);
+            }
+        }
+
+        [Test]
+        public async Task GetCityWarningsTest()
+        {
+            var api = await BurzeApiWrapper.Factory(_configuration["api_key"]);
+            var city = await api.GetCity("ostrowiec swietokrzyski");
+            var warnings = await api.GetCityWarnings(city);
+            //Thunderstorm
+            Console.WriteLine("Thunderstorm");
+            if (warnings.Thunderstorm > 0)
+            {
+                Console.WriteLine(warnings.ThunderstormStart);
+                Console.WriteLine(warnings.ThunderstormEnd);
+            }
+            //Cold
+            Console.WriteLine("Cold");
+            if (warnings.Cold > 0)
+            {
+                Console.WriteLine(warnings.ColdStart);
+                Console.WriteLine(warnings.ColdEnd);
+            }
+            //Heat
+            Console.WriteLine("Heat");
+            if (warnings.Heat > 0)
+            {
+                Console.WriteLine(warnings.HeatStart);
+                Console.WriteLine(warnings.HeatEnd);
+            }
+            //Wind
+            Console.WriteLine("Wind");
+            if (warnings.Wind > 0)
+            {
+                Console.WriteLine(warnings.WindStart);
+                Console.WriteLine(warnings.WindEnd);
+            }
+            //Rain
+            Console.WriteLine("Rain");
+            if (warnings.Rain > 0)
+            {
+                Console.WriteLine(warnings.RainStart);
+                Console.WriteLine(warnings.RainEnd);
+            }
+            //Tornado
+            Console.WriteLine("Tornado");
+            if (warnings.Tornado > 0)
+            {
+                Console.WriteLine(warnings.TornadoStart);
+                Console.WriteLine(warnings.TornadoEnd);
+            }
         }
     }
 }

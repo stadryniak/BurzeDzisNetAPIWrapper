@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using BurzeAPI;
 using BurzeDzisAPIWrapper.Types;
@@ -42,11 +43,18 @@ namespace BurzeDzisAPIWrapper
             return city;
         }
 
-        public async Task<MyComplexTypeOstrzezenia> GetWarnings(float x, float y)
+        public async Task<WeatherWarning> GetWarnings(float x, float y)
         {
-            var res = await _api.ostrzezenia_pogodoweAsync(y, x, _apiKey);
-            return res;
+            var response = await _api.ostrzezenia_pogodoweAsync(y, x, _apiKey);
+            var warnings = new WeatherWarning(response);
+            return warnings;
         }
+
+        public async Task<WeatherWarning> GetCityWarnings(City city)
+        {
+            return await GetWarnings(city.X, city.Y);
+        }
+
 
 
         /// <summary>
