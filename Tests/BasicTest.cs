@@ -2,6 +2,7 @@ using System;
 using System.IO;
 using System.Threading.Tasks;
 using BurzeDzisAPIWrapper;
+using BurzeDzisAPIWrapper.Types;
 using Microsoft.Extensions.Configuration;
 using NUnit.Framework;
 using Microsoft.Extensions.Configuration.UserSecrets;
@@ -106,7 +107,7 @@ namespace Tests
         {
             var api = await BurzeApiWrapper.Factory(_configuration["api_key"]);
             var city = await api.GetCity("ostrowiec swietokrzyski");
-            var warnings = await api.GetCityWarnings(city);
+            WeatherWarning warnings = await api.GetCityWarnings(city);
             //Thunderstorm
             Console.WriteLine("Thunderstorm");
             if (warnings.Thunderstorm > 0)
@@ -149,6 +150,15 @@ namespace Tests
                 Console.WriteLine(warnings.TornadoStart);
                 Console.WriteLine(warnings.TornadoEnd);
             }
+        }
+
+        [Test]
+        public async Task GetCityThunderstormTest()
+        {
+            var api = await BurzeApiWrapper.Factory(_configuration["api_key"]);
+            var city = await api.GetCity("Ostrowiec Swietokrzyski");
+            Thunderstorm thunder = await api.GetCityThunderstorm(city);
+            Console.WriteLine($"Count: {thunder.Count}, Direction {thunder.Direction}, Distance {thunder.Distance}, Period {thunder.Period}");
         }
     }
 }
