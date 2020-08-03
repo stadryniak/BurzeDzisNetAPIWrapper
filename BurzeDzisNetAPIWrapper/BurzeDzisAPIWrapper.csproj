@@ -2,6 +2,11 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>C:\Users\Mako\source\repos\BurzeDzisNetAPIWrapper\BurzeDzisNetAPIWrapper\BurzeDzisAPIWrapper.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace BurzeDzisAPIWrapper.Types
+﻿namespace BurzeDzisAPIWrapper.Types
 {
     public class City
     {

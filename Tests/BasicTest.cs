@@ -1,17 +1,17 @@
 using System;
-using System.IO;
+using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 using BurzeDzisAPIWrapper;
 using BurzeDzisAPIWrapper.Types;
 using Microsoft.Extensions.Configuration;
 using NUnit.Framework;
-using Microsoft.Extensions.Configuration.UserSecrets;
 
 namespace Tests
 {
     public class Tests
     {
-        private IConfiguration _configuration;
+        private readonly IConfiguration _configuration;
 
         public Tests()
         {
@@ -22,10 +22,11 @@ namespace Tests
         [SetUp]
         public void Setup()
         {
-            
+            Thread.Sleep(15000);
         }
 
         [Test]
+        //[Ignore("Passed. Ignore due to api rate limit")]
         public async Task ValidateApiKeyTest()
         {
             Assert.IsTrue(await BurzeApiWrapper.ValidateApiKeyTask(_configuration["api_key"]));
@@ -37,6 +38,7 @@ namespace Tests
         }
 
         [Test]
+        //[Ignore("Passed. Ignore due to api rate limit")]
         public void FactoryExceptionTest()
         {
             Assert.ThrowsAsync<InvalidApiKeyException>(async () => await BurzeApiWrapper.Factory("a"));
@@ -44,12 +46,22 @@ namespace Tests
         }
 
         [Test]
+        //[Ignore("Passed. Ignore due to api rate limit")]
         public async Task GetCityTest()
         {
             var api = await BurzeApiWrapper.Factory(_configuration["api_key"]);
             Assert.DoesNotThrowAsync(async () => await api.GetCity("Warszawa".ToLower()));
             Assert.DoesNotThrowAsync(async () => await api.GetCity("warszawa".ToLower()));
             Assert.DoesNotThrowAsync(async () => await api.GetCity("Ostrowiec Swietokrzyski".ToLower()));
+        }
+
+        [Test]
+        public async Task GetCityExceptionTest()
+        {
+            var api = await BurzeApiWrapper.Factory(_configuration["api_key"]);
+            Assert.ThrowsAsync<CityCoordinatesException>(async () => await api.GetCity("nonExistingCity"));
+            Assert.ThrowsAsync<CityCoordinatesException>(async () => await api.GetCity(""));
+            Assert.ThrowsAsync<CityCoordinatesException>(async () => await api.GetCity(null));
         }
 
         [Test]
@@ -159,6 +171,25 @@ namespace Tests
             var city = await api.GetCity("Ostrowiec Swietokrzyski");
             Thunderstorm thunder = await api.GetCityThunderstorm(city);
             Console.WriteLine($"Count: {thunder.Count}, Direction {thunder.Direction}, Distance {thunder.Distance}, Period {thunder.Period}");
+        }
+
+        [Test]
+        public async Task GetCities()
+        {
+            var api = await BurzeApiWrapper.Factory(_configuration["api_key"]);
+            List<string> list = await api.GetCities("war", "PL");
+            Assert.True(list.Contains("Warszawa"));
+            Assert.False(list.Contains("war"));
+        }
+
+        [Test]
+        public async Task GetCitiesExceptionTest()
+        {
+            var api = await BurzeApiWrapper.Factory(_configuration["api_key"]);
+            Assert.ThrowsAsync<ArgumentException>(async () => await api.GetCities("as", "PL"));
+            Assert.ThrowsAsync<ArgumentException>(async () => await api.GetCities("War", "P"));
+            Assert.ThrowsAsync<ArgumentException>(async () => await api.GetCities("Ostrawa", "PLa"));
+            Assert.ThrowsAsync<ArgumentException>(async () => await api.GetCities(null, null));
         }
     }
 }

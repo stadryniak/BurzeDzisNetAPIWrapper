@@ -1,0 +1,159 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>BurzeDzisAPIWrapper</name>
+    </assembly>
+    <members>
+        <member name="M:BurzeDzisAPIWrapper.BurzeApiWrapper.Factory(System.String)">
+            <summary>
+            Creates instance of api wrapper. Provided api key is validated.
+            </summary>
+            <param name="apiKey">Your api key</param>
+            <exception cref="T:BurzeDzisAPIWrapper.InvalidApiKeyException">InvalidApiKeyException is thrown in case of api key validation failure</exception>
+        </member>
+        <member name="M:BurzeDzisAPIWrapper.BurzeApiWrapper.GetCity(System.String)">
+            <summary>
+            Returns City type which contains coordinates of city or throws exception if city does not exist in list or returned data is
+            incorrect.
+            </summary>
+            <param name="cityName">Name of city which coordinates should be found</param>
+            <returns>City type with coordinates of city</returns>
+            <exception cref="T:BurzeDzisAPIWrapper.CityCoordinatesException">Indicates invalid city name or invalid coordinates returned by API</exception>
+        </member>
+        <member name="M:BurzeDzisAPIWrapper.BurzeApiWrapper.GetWarnings(System.Single,System.Single)">
+            <summary>
+            Returns weather warnings for given location
+            </summary>
+            <param name="x"></param>
+            <param name="y"></param>
+            <returns>WeatherWarnings type constaining information about all warnings in area</returns>
+        </member>
+        <member name="M:BurzeDzisAPIWrapper.BurzeApiWrapper.GetCityWarnings(BurzeDzisAPIWrapper.Types.City)">
+            <summary>
+            Get weather warnings for given city
+            </summary>
+            <param name="city"></param>
+            <returns></returns>
+        </member>
+        <member name="M:BurzeDzisAPIWrapper.BurzeApiWrapper.GetThunderstorm(System.Single,System.Single,System.Int32)">
+            <summary>
+            Get thunderstorm data for given coordinates and range.
+            </summary>
+            <param name="x"></param>
+            <param name="y"></param>
+            <param name="range"></param>
+            <returns>Thunderstorm type containing informations about lightning strikes in range</returns>
+        </member>
+        <member name="M:BurzeDzisAPIWrapper.BurzeApiWrapper.GetCityThunderstorm(BurzeDzisAPIWrapper.Types.City,System.Int32)">
+            <summary>
+            Get thunderstorm data for given city
+            </summary>
+            <param name="city"></param>
+            <param name="range"></param>
+            <returns>Thunderstorm type containing informations about lightning strikes in range</returns>
+        </member>
+        <member name="M:BurzeDzisAPIWrapper.BurzeApiWrapper.GetCities(System.String,System.String)">
+            <summary>
+            List available cities starting with nameFragment in given country
+            </summary>
+            <param name="nameFragment">First 3+ characters of city name</param>
+            <param name="countryCode">ISO 3166 alpha 2 country code</param>
+            <returns></returns>
+            <exception cref="T:System.ArgumentException">Thrown if nameFragment is shorter than 3 characters or country code length different than 2</exception>
+        </member>
+        <member name="M:BurzeDzisAPIWrapper.BurzeApiWrapper.ValidateApiKeyTask(System.String)">
+            <summary>
+            This function returns true if provided api key is valid, false otherwise.
+            </summary>
+            <param name="apiKey">Your api key</param>
+            <returns>True if validation succeeded</returns>
+        </member>
+        <member name="T:BurzeAPI.MyComplexTypeMiejscowosc">
+            <remarks/>
+        </member>
+        <member name="P:BurzeAPI.MyComplexTypeMiejscowosc.y">
+            <remarks/>
+        </member>
+        <member name="P:BurzeAPI.MyComplexTypeMiejscowosc.x">
+            <remarks/>
+        </member>
+        <member name="T:BurzeAPI.MyComplexTypeBurza">
+            <remarks/>
+        </member>
+        <member name="P:BurzeAPI.MyComplexTypeBurza.liczba">
+            <remarks/>
+        </member>
+        <member name="P:BurzeAPI.MyComplexTypeBurza.odleglosc">
+            <remarks/>
+        </member>
+        <member name="P:BurzeAPI.MyComplexTypeBurza.kierunek">
+            <remarks/>
+        </member>
+        <member name="P:BurzeAPI.MyComplexTypeBurza.okres">
+            <remarks/>
+        </member>
+        <member name="T:BurzeAPI.MyComplexTypeOstrzezenia">
+            <remarks/>
+        </member>
+        <member name="P:BurzeAPI.MyComplexTypeOstrzezenia.od_dnia">
+            <remarks/>
+        </member>
+        <member name="P:BurzeAPI.MyComplexTypeOstrzezenia.do_dnia">
+            <remarks/>
+        </member>
+        <member name="P:BurzeAPI.MyComplexTypeOstrzezenia.mroz">
+            <remarks/>
+        </member>
+        <member name="P:BurzeAPI.MyComplexTypeOstrzezenia.mroz_od_dnia">
+            <remarks/>
+        </member>
+        <member name="P:BurzeAPI.MyComplexTypeOstrzezenia.mroz_do_dnia">
+            <remarks/>
+        </member>
+        <member name="P:BurzeAPI.MyComplexTypeOstrzezenia.upal">
+            <remarks/>
+        </member>
+        <member name="P:BurzeAPI.MyComplexTypeOstrzezenia.upal_od_dnia">
+            <remarks/>
+        </member>
+        <member name="P:BurzeAPI.MyComplexTypeOstrzezenia.upal_do_dnia">
+            <remarks/>
+        </member>
+        <member name="P:BurzeAPI.MyComplexTypeOstrzezenia.wiatr">
+            <remarks/>
+        </member>
+        <member name="P:BurzeAPI.MyComplexTypeOstrzezenia.wiatr_od_dnia">
+            <remarks/>
+        </member>
+        <member name="P:BurzeAPI.MyComplexTypeOstrzezenia.wiatr_do_dnia">
+            <remarks/>
+        </member>
+        <member name="P:BurzeAPI.MyComplexTypeOstrzezenia.opad">
+            <remarks/>
+        </member>
+        <member name="P:BurzeAPI.MyComplexTypeOstrzezenia.opad_od_dnia">
+            <remarks/>
+        </member>
+        <member name="P:BurzeAPI.MyComplexTypeOstrzezenia.opad_do_dnia">
+            <remarks/>
+        </member>
+        <member name="P:BurzeAPI.MyComplexTypeOstrzezenia.burza">
+            <remarks/>
+        </member>
+        <member name="P:BurzeAPI.MyComplexTypeOstrzezenia.burza_od_dnia">
+            <remarks/>
+        </member>
+        <member name="P:BurzeAPI.MyComplexTypeOstrzezenia.burza_do_dnia">
+            <remarks/>
+        </member>
+        <member name="P:BurzeAPI.MyComplexTypeOstrzezenia.traba">
+            <remarks/>
+        </member>
+        <member name="P:BurzeAPI.MyComplexTypeOstrzezenia.traba_od_dnia">
+            <remarks/>
+        </member>
+        <member name="P:BurzeAPI.MyComplexTypeOstrzezenia.traba_do_dnia">
+            <remarks/>
+        </member>
+    </members>
+</doc>
