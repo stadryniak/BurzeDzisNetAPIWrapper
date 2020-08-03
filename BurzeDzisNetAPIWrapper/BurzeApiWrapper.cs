@@ -8,6 +8,9 @@ using BurzeDzisAPIWrapper.Types;
 
 namespace BurzeDzisAPIWrapper
 {
+    /// <summary>
+    /// Api wrapper class. Proviedes simple way to call BurzeDzisNet api, returned objects are translated from polish to english.
+    /// </summary>
     public class BurzeApiWrapper
     {
         private readonly string _apiKey;
